@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap');
+
+:root {
+    /* Minimalist Tech Palette */
+    --bg-main: #0B0F14;
+    /* Deepest Black */
+    --bg-card: #0c1016;
+    /* Slightly Lighter Black for contrast */
+    --primary-blue: #00A3FF;
+    /* Neon Blue */
+    --soft-blue: #2A7FFF;
+    /* Secondary Blue */
+    --text-main: #F2F4F8;
+    /* Soft White */
+    --text-muted: #A6B1C2;
+    /* Modern Grey */
+
+    /* Effects */
+    --neon-glow: 0 0 15px rgba(0, 163, 255, 0.3);
+    --neon-border: 1px solid rgba(0, 163, 255, 0.5);
+    --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+
+    --section-padding: 120px 20px;
+    --border-radius: 8px;
+    /* Sharper corners for enterprise feel */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-main);
+    overflow-x: hidden;
+    line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scanline {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container {
+    max-width: 1000px;
+    /* Tighter container for text focus */
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 70px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-main);
+}
+
+/* --- Section 1: Hero (Text Only) --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    /* Subtle moving gradient background */
+    background: linear-gradient(125deg, #0B0F14 0%, #111 40%, #00121f 100%);
+    background-size: 200% 200%;
+    animation: scanline 15s ease infinite;
+    overflow: hidden;
+}
+
+/* Moving Neon Line Effect */
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+    top: 50%;
+    left: -50%;
+    transform: rotate(-15deg);
+    opacity: 0.3;
+    animation: scanline 8s linear infinite;
+}
+
+.hero-content {
+    z-index: 2;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.hero h3 {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, #fff, #A6B1C2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.btn {
+    padding: 16px 40px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+}
+
+.btn-primary {
+    background: transparent;
+    border: 1px solid var(--primary-blue);
+    color: var(--primary-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    background: var(--primary-blue);
+    color: white;
+    box-shadow: 0 0 40px rgba(0, 163, 255, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-muted);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-blue);
+    color: var(--text-main);
+}
+
+/* --- Section: Card Tech (Shared) --- */
+.tech-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 163, 255, 0.2);
+    padding: 40px 30px;
+    border-radius: var(--border-radius);
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+.tech-card:hover {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 20px rgba(0, 163, 255, 0.15);
+    transform: translateY(-5px);
+}
+
+/* --- Section 2: Tentang Saya (Structured) --- */
+.about-text {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+}
+
+.about-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.about-item h4 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+/* --- Section 3: Pendidikan --- */
+.edu-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.edu-card-large {
+    background: var(--bg-card);
+    border: 1px solid var(--primary-blue);
+    padding: 60px;
+    text-align: center;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 700px;
+    transition: transform 0.3s;
+}
+
+.edu-card-large:hover {
+    box-shadow: 0 15px 50px rgba(0, 163, 255, 0.1);
+}
+
+.edu-card-large h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.edu-card-large h4 {
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.edu-card-large .time {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid var(--text-muted);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* --- Section 4: Skills (2 Rows) --- */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Force 2 columns */
+    gap: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skill-box {
+    background: var(--bg-main);
+    border: 1px solid var(--primary-blue);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.skill-box:hover {
+    box-shadow: var(--neon-glow);
+    background: #0d1219;
+}
+
+.skill-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-main);
+}
+
+.skill-stars {
+    color: var(--primary-blue);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+/* --- Section 5: Portfolio (Placeholders) --- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.empty-state {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--text-muted);
+    border-radius: var(--border-radius);
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.empty-state:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    background: rgba(0, 163, 255, 0.05);
+}
+
+/* --- Section 6: Contact --- */
+.contact-wrapper {
+    text-align: center;
+}
+
+.contact-email {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin: 20px 0;
+    display: block;
+}
+
+.contact-uni {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+footer {
+    border-top: 1px solid #1a2236;
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack on mobile */
+    .btn-group {
+        flex-direction: column;
+    }
+}
