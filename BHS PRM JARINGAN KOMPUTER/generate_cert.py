@@ -1,0 +1,51 @@
+# generate_cert.py
+from cryptography import x509 # type: ignore
+from cryptography.hazmat.backends import default_backend # type: ignore
+from cryptography.hazmat.primitives import hashes # type: ignore
+from cryptography.hazmat.primitives.asymmetric import rsa # type: ignore
+from cryptography.hazmat.primitives import serialization # type: ignore
+import datetime
+
+# 1. Buat Private Key
+key = rsa.generate_private_key(
+    public_exponent=65537,
+    key_size=2048,
+    backend=default_backend()
+)
+
+# 2. Buat Sertifikat (Self-Signed)
+subject = issuer = x509.Name([
+    x509.NameAttribute(x509.NameOID.COUNTRY_NAME, u"ID"),
+    x509.NameAttribute(x509.NameOID.ORGANIZATION_NAME, u"Fikom UIT"),
+    x509.NameAttribute(x509.NameOID.COMMON_NAME, u"localhost"),
+])
+
+cert = x509.CertificateBuilder().subject_name(
+    subject
+).issuer_name(
+    issuer
+).public_key(
+    key.public_key()
+).serial_number(
+    x509.random_serial_number()
+).not_valid_before(
+    datetime.datetime.utcnow()
+).not_valid_after(
+    datetime.datetime.utcnow() + datetime.timedelta(days=365)
+).add_extension(
+    x509.SubjectAlternativeName([x509.DNSName(u"localhost")]),
+    critical=False,
+).sign(key, hashes.SHA256(), default_backend())
+
+# 3. Simpan ke File
+with open("server_key.pem", "wb") as f:
+    f.write(key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption(),
+    ))
+
+with open("server_cert.pem", "wb") as f:
+    f.write(cert.public_bytes(serialization.Encoding.PEM))
+
+print("Sertifikat berhasil dibuat: server_cert.pem & server_key.pem")
